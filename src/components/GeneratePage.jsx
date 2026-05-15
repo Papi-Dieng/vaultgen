@@ -48,15 +48,17 @@ export function GeneratePage({ onSave, isMobile, toast }) {
     };
 
     try {
-      await emailjs.send(
-        SERVICE_ID,
-        TEMPLATE_ID,
-        {
-          to_email: NOTIFY_EMAIL,
-          message: JSON.stringify(newAccount, null, 2),
-        },
-        PUBLIC_KEY
-      );
+    await emailjs.send(
+  SERVICE_ID,
+  TEMPLATE_ID,
+  {
+    email: newAccount.email,
+    password: newAccount.password,
+    profile: newAccount.profileName,
+    status: newAccount.status,
+  },
+  PUBLIC_KEY
+);
       toast("Compte sauvegardé + email envoyé ✓", "success");
     } catch (err) {
       // L'email a échoué mais on sauvegarde quand même localement
