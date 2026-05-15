@@ -19,44 +19,43 @@ export const TEMPLATES = {
   netflix: {
     label: "Netflix",
     icon: "📺",
-    generate: ({ email, password, profileName, pin }) => {
+    generate: ({ email, password, profileName, pin, expiresAt }) => {
       const fullEmail    = `${email}@gmail.com`;
       const fullPassword = `${password}098`;
       const pinLine      = pin
-        ? `\n8- Ensuite, il demandera un PIN :\n\nUser-Pin : ${pin}\n`
+        ? `*8-* Après il va te demander un pin\n*User-Pin:* \`${pin}\``
         : "";
-      return `NB : 1 profil = 1 appareil ⚠️
+      const expireLine   = expiresAt ? `*${expiresAt}*` : "";
+      return `\`NB : 1 profil c'est pour 1 appareil\` ⚠️
 
-1- Installe l'application Netflix
+*1-* Installes l'application Netflix
+*2-* Ouvres l'application
+*3-* Appuies sur le bouton *"Sign in"* ou *"S'identifier"*
+*4-* Entre l'email du compte :
 
-2- Ouvre l'application
+Email : \`${fullEmail}\`
 
-3- Appuie sur le bouton "Sign in" ou "S'identifier"
+_Puis appuie sur Continuer_
 
-4- Entre l'email du compte :
+*5-* _Quand Netflix demande un code d'identification :_
+_Appuie sur « Obtenir de l'aide » puis sur « Utiliser le mot de passe »_
 
-Email : ${fullEmail}
+*6-* Entre le mot de passe :
 
-Puis appuie sur Continuer.
+Mot de passe 🔐 : \`${fullPassword}\`
 
-5- Quand Netflix demande un code d'identification :
-Appuie sur « Obtenir de l'aide » puis sur « Utiliser le mot de passe ».
+*7-* Sélectionne le profil :
 
-6- Entre le mot de passe :
+*Profil* : _\`${profileName}\`_
 
-Mot de passe 🔐 : ${fullPassword}
-
-7- Sélectionne le profil :
-
-Profil : ${profileName}
 ${pinLine}
-Tu peux commencer !
 
-🚫 Fin d'abonnement
+_Tu peux commencer !_
 
----
-
-🔔 Renouvelle avant la date limite pour conserver ton compte actuel.`;
+> 🚫 Fin d'abonnement
+${expireLine}
+_______________________
+> *_🔔 Renouvelez avant la date limite pour conserver votre compte actuel._*`;
     },
   },
   spotify: {
