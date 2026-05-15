@@ -27,6 +27,18 @@ export const AccountCard = memo(function AccountCard({ account, onDelete, isMobi
   const toggleExpand  = useCallback(() => setExpanded((e) => !e), []);
   const expiringSoon  = useMemo(() => isExpiringSoon(account.expiresAt), [account.expiresAt]);
 
+  const handleWhatsApp = useCallback(() => {
+    const text = tpl.generate({
+      email:       stripSuffix(account.email,    "@gmail.com"),
+      password:    stripSuffix(account.password, "098"),
+      profileName: account.profileName,
+      pin:         account.pin,
+    });
+    const encoded = encodeURIComponent(text);
+    window.open(`https://wa.me/221777948481?text=${encoded}`, "_blank");
+    toast("WhatsApp ouvert !", "success");
+  }, [account, tpl, toast]);
+
   return (
     <div style={{ ...glassStyle, padding:"18px 22px", transition:"border-color 0.2s" }}>
       <div style={{ display:"flex", alignItems:"center", gap:14 }}>
@@ -53,6 +65,7 @@ export const AccountCard = memo(function AccountCard({ account, onDelete, isMobi
           </span>
         </div>
         <div style={{ display:"flex", gap:8, flexShrink:0 }}>
+          <button onClick={handleWhatsApp} title="Envoyer sur WhatsApp" style={{ ...btnGhost, padding:"7px 12px", fontSize:12, color:"#6ee7b7", border:"1px solid rgba(37,211,102,0.3)" }}>📲</button>
           <button onClick={handleCopy}   title="Copier les instructions" style={{ ...btnGhost, padding:"7px 12px", fontSize:12 }}>{copied ? "✓" : "⎘"}</button>
           <button onClick={toggleExpand} title={expanded ? "Réduire" : "Voir les détails"} style={{ ...btnGhost, padding:"7px 12px", fontSize:12 }}>{expanded ? "▲" : "▼"}</button>
           <button onClick={handleDelete} title="Supprimer" style={{ ...btnGhost, padding:"7px 12px", fontSize:12, color:"#f09595" }}>✕</button>
